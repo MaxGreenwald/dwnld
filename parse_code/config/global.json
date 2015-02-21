@@ -1,0 +1,11 @@
+{
+    "applications": {
+        "_default": {
+            "link": "dwnld"
+        }, 
+        "dwnld": {
+            "applicationId": "KV0NUtsEyuLhm2lfKOQpPBZyqrTYhSTKKMsu6J3E", 
+            "masterKey": "qkftXw6ZXfsnFDWBJG7P6chELuQKR5BeKTVsdYce"
+        }
+    }
+}
