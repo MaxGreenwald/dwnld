@@ -1,4 +1,23 @@
 
+// var async = require('async');
+
+///////////////////////////////////////////////////////////////////////////
+//REMOVE THIS CODE WHEN YOU DEPLOY 
+var runOnParse = false;
+var originalParseFunction = Parse._request;
+
+Parse._request = function (options) {
+    Parse.serverURL = "https://api.parse.com";
+
+    if (runOnParse === false && options.route == "functions") {
+        Parse.serverURL = "http://localhost:5555";
+    }
+
+    return originalParseFunction(options);
+};
+//END CODE
+///////////////////////////////////////////////////////////////////////////
+
 var Song = Parse.Object.extend("Song");
 
 // Use Parse.Cloud.define to define as many cloud functions as you want.
@@ -58,3 +77,106 @@ Parse.Cloud.define("find", function(request, response) {
 	});
 	
 });
+
+// convert youtube URLs to download URLs
+// save songs to Parse
+// POST data: ["songYoutubeURL", "songYoutubeURL", ...]
+// response data: [{song object}, {song object}, ....]
+Parse.Cloud.define("convert", function(request, response) {
+
+	// array of youtube URLS
+	var youtubeURLS = request.body;
+
+	// convert each URL
+	/*async.forEach(youtubeURLS, 
+
+		// convert current URL
+		function(youtubeURL, callback) {
+
+	    }, 
+
+	    // completion action
+	    function(err) {
+	        res.json(elections);
+	    }
+	);*/
+});
+
+var getYoutubeURL = function(song, artist, success, error){
+
+	var query = song + " by " + artist;
+	query = query.replace(/ /g, "+");
+
+	var apiKey = "AIzaSyDAS29etVluZDFpSJ1nukEEQVv1PRpaGfM";
+
+	var params = {
+			part: "snippet",
+			q: query,
+			key: apiKey
+		};
+
+	console.log('params: ');
+	console.log(params);
+
+	var queryString = "part=snippet&q=" + query + "&key=" + apiKey;
+
+	console.log(queryString);
+
+	var reqURL = "https://www.googleapis.com/youtube/v3/search";
+	var req = Parse.Cloud.httpRequest({
+		method: "GET",
+		url: reqURL,
+		params: params,
+		success: function( httpResponse ) {
+			console.log('youtube query success');
+			console.log(httpResponse);
+		},
+		error: function( httpResponse ) {
+			console.log('Youtube query request failed with response code: ' + httpResponse.status);
+			console.log('Error: ' + httpResponse.error.message);
+		}
+	});
+
+	console.log(req);
+}
+
+var convertYoutubeToDownload = function(youtubeURL, callback) {
+
+	console.log('converting youtube vid: ' + youtubeURL);
+
+	var youtubeIDParamName = "watch?v=";
+	var youtubeIDIndex = youtubeURL.indexOf(youtubeIDParamName) + youtubeIDParamName.length;
+	var youtubeID = youtubeURL.substring(youtubeIDIndex);
+
+	console.log('extracted youtube ID: ' + youtubeID);
+http://www.youtube-mp3.org/a/itemInfo/?video_id=e-ORhEE9VVg&ac=www&t=grp&r=1424539677770&s=14231
+	var reqURL = "http://www.youtube-mp3.org/a/itemInfo/?video_id" + youtubeID + "&ac=www&t=grp&r=1424516943797&s=145890";
+
+	Parse.Cloud.httpRequest({
+  		method: "GET",
+  		url: reqURL,
+  		body: '',
+  		success: function(httpResponse) {
+   			console.log(httpResponse.text);
+			callback(youtubeURL);
+  		},
+  		error: function(httpResponse) {
+    		console.error('Request failed with response code ' + httpResponse.status);
+  		} 		
+  	});
+
+}
+
+var test = function() {
+	var song = "Blank Space";
+	var artist = "Taylor Swift";
+
+	getYoutubeURL(song, artist, null, null);
+
+	/*var youtube1 = "https://www.youtube.com/watch?v=e-ORhEE9VVg";
+	convertYoutubeToDownload(youtube1, function (downloadURL) {
+		console.log(youtube1 + " --> " + downloadURL);
+	});*/
+}
+
+test();
