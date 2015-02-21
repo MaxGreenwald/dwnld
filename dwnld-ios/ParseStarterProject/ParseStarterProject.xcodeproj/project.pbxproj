@@ -32,6 +32,14 @@
 		81A6CA611A2EA82800297C39 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81A6CA601A2EA82800297C39 /* libstdc++.6.dylib */; };
 		81DDFD1919B4A60300BE649C /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81DDFD1719B4A60300BE649C /* Parse.framework */; };
 		81DDFD1A19B4A60300BE649C /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81DDFD1819B4A60300BE649C /* ParseFacebookUtils.framework */; };
+		8636C32B1A98ACD000D7DE8D /* round-green-button-for-a-web-site-psd_www.all-graphic.net-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8636C32A1A98ACD000D7DE8D /* round-green-button-for-a-web-site-psd_www.all-graphic.net-1.png */; };
+		8636C32D1A98AD9800D7DE8D /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8636C32C1A98AD9800D7DE8D /* Storyboard.storyboard */; };
+		8636C3931A98D9E200D7DE8D /* PopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8636C3921A98D9E200D7DE8D /* PopupViewController.m */; };
+		8636C3991A98DD4800D7DE8D /* interestsTab.png in Resources */ = {isa = PBXBuildFile; fileRef = 8636C3981A98DD4800D7DE8D /* interestsTab.png */; };
+		8636C39B1A98DD5200D7DE8D /* content.png in Resources */ = {isa = PBXBuildFile; fileRef = 8636C39A1A98DD5200D7DE8D /* content.png */; };
+		8636C39D1A98EFF200D7DE8D /* dwnldLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8636C39C1A98EFF200D7DE8D /* dwnldLogo.png */; };
+		8636C39F1A98F03F00D7DE8D /* Menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 8636C39E1A98F03F00D7DE8D /* Menu.png */; };
+		86F7B3F41A98A4AE00878DF8 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F7B3F21A98A4AE00878DF8 /* HomeViewController.m */; };
 		91D261791A36EB67005D713D /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D261781A36EB67005D713D /* libsqlite3.0.dylib */; };
 		C4C51B571613CE0800959FDC /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C4C51B541613CE0800959FDC /* Default.png */; };
 		C4C51B581613CE0800959FDC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C4C51B551613CE0800959FDC /* Default-568h@2x.png */; };
@@ -75,6 +83,16 @@
 		81A6CA601A2EA82800297C39 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		81DDFD1719B4A60300BE649C /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		81DDFD1819B4A60300BE649C /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
+		8636C32A1A98ACD000D7DE8D /* round-green-button-for-a-web-site-psd_www.all-graphic.net-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round-green-button-for-a-web-site-psd_www.all-graphic.net-1.png"; sourceTree = "<group>"; };
+		8636C32C1A98AD9800D7DE8D /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		8636C3911A98D9E200D7DE8D /* PopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupViewController.h; sourceTree = "<group>"; };
+		8636C3921A98D9E200D7DE8D /* PopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupViewController.m; sourceTree = "<group>"; };
+		8636C3981A98DD4800D7DE8D /* interestsTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = interestsTab.png; sourceTree = "<group>"; };
+		8636C39A1A98DD5200D7DE8D /* content.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = content.png; sourceTree = "<group>"; };
+		8636C39C1A98EFF200D7DE8D /* dwnldLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dwnldLogo.png; sourceTree = "<group>"; };
+		8636C39E1A98F03F00D7DE8D /* Menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Menu.png; sourceTree = "<group>"; };
+		86F7B3F11A98A4AE00878DF8 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		86F7B3F21A98A4AE00878DF8 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		91D261781A36EB67005D713D /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		97E18B1E1624CB5700B17A67 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C4C51B541613CE0800959FDC /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -115,6 +133,12 @@
 		09ABC06213A1D52D009C3FCF = {
 			isa = PBXGroup;
 			children = (
+				8636C3911A98D9E200D7DE8D /* PopupViewController.h */,
+				8636C3921A98D9E200D7DE8D /* PopupViewController.m */,
+				8636C32C1A98AD9800D7DE8D /* Storyboard.storyboard */,
+				8636C32A1A98ACD000D7DE8D /* round-green-button-for-a-web-site-psd_www.all-graphic.net-1.png */,
+				86F7B3F11A98A4AE00878DF8 /* HomeViewController.h */,
+				86F7B3F21A98A4AE00878DF8 /* HomeViewController.m */,
 				09ABC07713A1D52D009C3FCF /* ParseStarterProject */,
 				09ABC07013A1D52D009C3FCF /* Frameworks */,
 				09ABC06E13A1D52D009C3FCF /* Products */,
@@ -162,6 +186,10 @@
 		09ABC07813A1D52D009C3FCF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8636C39E1A98F03F00D7DE8D /* Menu.png */,
+				8636C39C1A98EFF200D7DE8D /* dwnldLogo.png */,
+				8636C39A1A98DD5200D7DE8D /* content.png */,
+				8636C3981A98DD4800D7DE8D /* interestsTab.png */,
 				C4C51B541613CE0800959FDC /* Default.png */,
 				C4C51B561613CE0800959FDC /* Default@2x.png */,
 				C4C51B551613CE0800959FDC /* Default-568h@2x.png */,
@@ -251,11 +279,17 @@
 			files = (
 				09ABC07C13A1D52D009C3FCF /* InfoPlist.strings in Resources */,
 				09ABC08513A1D52E009C3FCF /* MainWindow.xib in Resources */,
+				8636C3991A98DD4800D7DE8D /* interestsTab.png in Resources */,
+				8636C32B1A98ACD000D7DE8D /* round-green-button-for-a-web-site-psd_www.all-graphic.net-1.png in Resources */,
 				09ABC08B13A1D52E009C3FCF /* ParseStarterProjectViewController.xib in Resources */,
 				09144A7313C2997E00388B00 /* Entitlements.plist in Resources */,
+				8636C39D1A98EFF200D7DE8D /* dwnldLogo.png in Resources */,
 				C4C51B571613CE0800959FDC /* Default.png in Resources */,
 				C4C51B581613CE0800959FDC /* Default-568h@2x.png in Resources */,
+				8636C39B1A98DD5200D7DE8D /* content.png in Resources */,
+				8636C39F1A98F03F00D7DE8D /* Menu.png in Resources */,
 				C4C51B591613CE0800959FDC /* Default@2x.png in Resources */,
+				8636C32D1A98AD9800D7DE8D /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,8 +318,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				09ABC07F13A1D52D009C3FCF /* main.m in Sources */,
+				8636C3931A98D9E200D7DE8D /* PopupViewController.m in Sources */,
 				09ABC08213A1D52D009C3FCF /* ParseStarterProjectAppDelegate.m in Sources */,
 				7DA50D6A1A9895120070E606 /* SongTableViewController.m in Sources */,
+				86F7B3F41A98A4AE00878DF8 /* HomeViewController.m in Sources */,
 				09ABC08813A1D52E009C3FCF /* ParseStarterProjectViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
