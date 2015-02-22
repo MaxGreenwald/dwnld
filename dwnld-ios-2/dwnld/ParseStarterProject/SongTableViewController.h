@@ -13,6 +13,7 @@
 @interface SongTableViewController : UITableViewController<LMMediaPlayerViewDelegate>{
     NSMutableArray *songs;
     LMMediaPlayerView *playerView_;
+    NSMutableArray *musics_;
 }
 
 

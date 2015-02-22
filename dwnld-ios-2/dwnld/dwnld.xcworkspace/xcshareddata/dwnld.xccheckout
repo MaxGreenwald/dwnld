@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>9F992018-F208-494E-BAD3-0087F78B3426</string>
+	<key>IDESourceControlProjectName</key>
+	<string>dwnld</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>14DB0ECA9E6302A4394985A163B2C5BAC1A18914</key>
+		<string>https://github.com/MaxGreenwald/dwnld.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>dwnld-ios-2/dwnld/dwnld.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>14DB0ECA9E6302A4394985A163B2C5BAC1A18914</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/MaxGreenwald/dwnld.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>14DB0ECA9E6302A4394985A163B2C5BAC1A18914</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>14DB0ECA9E6302A4394985A163B2C5BAC1A18914</string>
+			<key>IDESourceControlWCCName</key>
+			<string>dwnld</string>
+		</dict>
+	</array>
+</dict>
+</plist>

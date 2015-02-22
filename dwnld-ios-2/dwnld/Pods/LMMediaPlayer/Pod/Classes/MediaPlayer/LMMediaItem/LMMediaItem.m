@@ -199,6 +199,7 @@ NSString *LMMediaItemInfoContentTypeKey = @"LMMediaItemInfoContentTypeKey";
 		@"album" : albumTitle_ ?: @"nil",
 		@"artist" : artist_ ?: @"nil",
 		@"url" : url_ ?: @"nil",
+        @"asset url": self.assetURL ?: @"nil",
 		@"artwork" : artworkImage_ ?: @"nil",
 		@"content type" : _contentType == LMMediaItemContentTypeAudio ? @"LMMediaItemContentTypeAudio" : @"LMMediaItemContentTypeVideo",
 		@"meta media" : metaMedia_ ?: @"nil" } description];
