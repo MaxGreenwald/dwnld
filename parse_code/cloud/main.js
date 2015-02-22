@@ -1,8 +1,11 @@
+var YOUTUBE_APIKEY = "AIzaSyCFj15TpkchL4OUhLD1Q2zgxQnMb7v3XaM";
+var YOUTUBE_OAUTH_BEARER = "ya29.IgGH5vJePRt8R3ciiE-gMN2NWSW0my8XdCatxvwhHUyOtgCBWDFmgtcdPVQsX3ORWKI0xbmMPnx1yA";
 
-var async = require('cloud/node_modules/async/lib/async');
+var _ = require('underscore');
+var async = require('async');
 
 ///////////////////////////////////////////////////////////////////////////
-//REMOVE THIS CODE WHEN YOU DEPLOY 
+//REMOVE THIS CODE WHEN YOU DEPLOY
 /*var runOnParse = false;
 var originalParseFunction = Parse._request;
 
@@ -81,7 +84,7 @@ Parse.Cloud.define("find", function(request, response) {
   				// Async call is done, alert via callback
 			    callback();
   			});
-		    
+
 		},
 
   		// 3rd param is the function to call when everything's done
@@ -99,7 +102,7 @@ Parse.Cloud.define("find", function(request, response) {
 	var songName = "song " + i;
 	var artistName = "artist " + i;
 
-	createSongFromValues(songName, artistName, { 
+	createSongFromValues(songName, artistName, {
 	  success: function(song) {
 	    // Execute any logic that should take place after the object is saved.
 	    // alert('New object created with objectId: ' + gameScore.id);
@@ -112,7 +115,7 @@ Parse.Cloud.define("find", function(request, response) {
 	    response.error(error.message);
 	  }
 	});*/
-	
+
 });
 
 var createSongFromValues = function( title, artist, success, error) {
@@ -149,12 +152,12 @@ Parse.Cloud.define("convert", function(request, response) {
 	var youtubeURLS = request.body;
 
 	// convert each URL
-	/*async.forEach(youtubeURLS, 
+	/*async.forEach(youtubeURLS,
 
 		// convert current URL
 		function(youtubeURL, callback) {
 
-	    }, 
+	    },
 
 	    // completion action
 	    function(err) {
@@ -163,17 +166,86 @@ Parse.Cloud.define("convert", function(request, response) {
 	);*/
 });
 
+// calls downloadYoutubeID on each song in the current user's
+// Music Downloads playlist, or calls error()
+var downloadAllSongs = function(error) {
+  getYoutubePlaylist(function(id) {
+
+    var baseURL = "https://www.googleapis.com/youtube/v3/playlistItems";
+    var queryString = "part=id%2C+snippet&maxResults=50&playlistId=" + id +
+        "&key=" + YOUTUBE_APIKEY;
+    var url = baseURL + "?" + queryString;
+
+    Parse.Cloud.httpRequest({
+      method: "GET",
+      url: url,
+      headers: {
+        authorization: 'authorization:Bearer ' + YOUTUBE_OAUTH_BEARER
+      },
+      success: function( httpResponse ) {
+        _.each(httpResponse.items, function(item) {
+          downloadYoutubeID(item.snippet.resourceId.videoId); // TODO: callback when done
+        });
+      },
+      error: function( httpResponse ) {
+        console.log(httpResponse);
+        error();
+      }
+    });
+
+  }, function() {
+    console.log("Couldn't fetch music downloads playlist");
+  });
+}
+
+// gets the ID of the YouTube playlist titled "Music Downloads"
+// calls success(id) or error()
+var getYoutubePlaylist = function(success, error) {
+
+  var baseURL = "https://www.googleapis.com/youtube/v3/playlists";
+  var queryString = "part=id%2C+snippet&mine=true&key=" + YOUTUBE_APIKEY;
+  var url = baseURL + "?" + queryString;
+
+  Parse.Cloud.httpRequest({
+    method: "GET",
+    url: url,
+    headers: {
+      authorization: 'authorization:Bearer ' + YOUTUBE_OAUTH_BEARER
+    },
+    success: function( httpResponse ) {
+      if (httpResponse.status != 200) {
+        console.log(httpResponse);
+        error();
+        return;
+      }
+      var playlists = _.filter(httpResponse.items, function(item) {
+        return item.snippet.title === "Music Downloads";
+      });
+
+      if (playlists.length === 0) {
+        console.log("playlists.length === 0");
+        error();
+      } else {
+        var playlist = playlists[0];
+        success(item.id);
+      }
+
+    },
+    error: function( httpResponse ) {
+      console.log(httpResponse);
+      error();
+    }
+  });
+}
+
 var getYoutubeURL = function(song, artist, success, error){
 
 	// create query
 	var query = song + " by " + artist;
 	query = query.replace(/ /g, "+");
 
-	// api key
-	var apiKey = "AIzaSyDAS29etVluZDFpSJ1nukEEQVv1PRpaGfM";
-
 	// combine full url
-	var queryString = "part=snippet&q=" + query + "&key=" + apiKey;
+	var queryString = "part=snippet&q=" + query + "&key=" + YOUTUBE_APIKEY;
 	var baseURL = "https://www.googleapis.com/youtube/v3/search";
 	var url = baseURL + "?" + queryString;
 
@@ -235,9 +307,8 @@ var downloadYoutubeByID = function(youtubeID, callback) {
   		},
   		error: function(httpResponse) {
     		console.error('Request failed with response code ' + httpResponse.status);
-  		} 		
+  		}
   	});*/
-
 };
 
 var test = function() {
@@ -305,7 +376,7 @@ var fetchSong = function(song, callback){
 			console.log('saving song');
 			console.log(songDictionary);
 
-			createSongFromDictionary(songDictionary, 
+			createSongFromDictionary(songDictionary,
 				function(song){
 
 					console.log('success saving song!');
