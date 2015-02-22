@@ -1,10 +1,11 @@
 var YOUTUBE_APIKEY = "AIzaSyDAS29etVluZDFpSJ1nukEEQVv1PRpaGfM";
 var YOUTUBE_OAUTH_BEARER = "ya29.IgGH5vJePRt8R3ciiE-gMN2NWSW0my8XdCatxvwhHUyOtgCBWDFmgtcdPVQsX3ORWKI0xbmMPnx1yA";
 
-var node = require('node');
+
 var _ = require('cloud/node_modules/underscore/underscore.js');
 var async = require('cloud/node_modules/async/lib/async.js');
 var Spooky = require('cloud/node_modules/spooky/lib/spooky.js');
+
 
 ///////////////////////////////////////////////////////////////////////////
 //REMOVE THIS CODE WHEN YOU DEPLOY
@@ -338,7 +339,7 @@ this.echo(this.getElementAttribute('input[id="submit"]', 'disabled'));
     var links;
 //get download link and pass it to callback()
     casper.waitForSelector('.success', function() {
-        
+
         var link = this.evaluate(function() {
             return __utils__.getElementByXPath("//a[contains(@href,'&ts_create')]").href;
         })
@@ -347,7 +348,7 @@ this.echo(this.getElementAttribute('input[id="submit"]', 'disabled'));
             callback(link);
         });
 
-        
+
     });
 });*/
 
