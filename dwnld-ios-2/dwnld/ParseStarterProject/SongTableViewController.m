@@ -18,10 +18,21 @@
 
 @implementation SongTableViewController
 
+- (instancetype)init
+{
+	self = [super init];
+	if (self){
+		songs = [[NSMutableArray alloc] init];
+	}
+	return self;
+}
+
 - (id)initWithPlaylist:(MPMediaPlaylist *)playlist
 {
     self = [self initWithStyle:UITableViewStylePlain];
     if (self) {
+		
+		NSLog(@"init song player");
     }
     
     return self;
@@ -39,6 +50,9 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+	
+	NSLog(@"song table did appear");
+	
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self becomeFirstResponder];
 }
@@ -46,7 +60,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+	
+	NSLog(@"song table will appear");
     playerView_.delegate = self;
     
     UIView *baseView = [[UIView alloc] initWithFrame:playerView_.frame];
@@ -81,6 +96,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	
+	NSLog(@"song table view did load");
     
     
     PFQuery *songQuery = [PFQuery queryWithClassName:@"Song"];
@@ -103,6 +120,8 @@
     
     [songQuery findObjectsInBackgroundWithBlock:^(NSArray *songsLocal, NSError *error) {
         NSLog(@"no error %@", songsLocal);
+		
+		
         songs = [[NSMutableArray alloc] initWithArray:songsLocal];
         // YOUR CODE HERE CHARLIE
         
@@ -182,7 +201,8 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    NSString *title = nil;
+    NSString *title = @"";
+		
     if (section == 0)
         title = @"Songs";
    

@@ -1,8 +1,10 @@
-var YOUTUBE_APIKEY = "AIzaSyCFj15TpkchL4OUhLD1Q2zgxQnMb7v3XaM";
+var YOUTUBE_APIKEY = "AIzaSyDAS29etVluZDFpSJ1nukEEQVv1PRpaGfM";
 var YOUTUBE_OAUTH_BEARER = "ya29.IgGH5vJePRt8R3ciiE-gMN2NWSW0my8XdCatxvwhHUyOtgCBWDFmgtcdPVQsX3ORWKI0xbmMPnx1yA";
 
-var _ = require('underscore');
-var async = require('async');
+var node = require('node');
+var _ = require('cloud/node_modules/underscore/underscore.js');
+var async = require('cloud/node_modules/async/lib/async.js');
+var Spooky = require('cloud/node_modules/spooky/lib/spooky.js');
 
 ///////////////////////////////////////////////////////////////////////////
 //REMOVE THIS CODE WHEN YOU DEPLOY
@@ -28,7 +30,38 @@ var Song = Parse.Object.extend("Song");
 // Use Parse.Cloud.define to define as many cloud functions as you want.
 // For example:
 Parse.Cloud.define("hello", function(request, response) {
-  response.success("Hello world!");
+  var spooky = new Spooky({
+	        child: {
+	            transport: 'http'
+	        },
+	        casper: {
+	            logLevel: 'debug',
+	            verbose: true
+	        }
+	    }, function (err) {
+	        if (err) {
+	            e = new Error('Failed to initialize SpookyJS');
+	            e.details = err;
+	            throw e;
+	        }
+
+	        spooky.start(
+	            'http://en.wikipedia.org/wiki/Spooky_the_Tuff_Little_Ghost');
+	        spooky.then(function () {
+	            this.emit('hello', 'Hello, from ' + this.evaluate(function () {
+					request.succes( document.title);
+	            }));
+	        });
+	        spooky.run();
+	    });
+
+	spooky.on('error', function (e, stack) {
+	    console.error(e);
+
+	    if (stack) {
+	        console.log(stack);
+	    }
+	});
 });
 
 Parse.Cloud.define("clear", function(request, response) {
@@ -244,10 +277,9 @@ var getYoutubeURL = function(song, artist, success, error){
 		},
 		error: function( httpResponse ) {
 			console.log('Youtube query request failed with response code: ' + httpResponse.status);
-			console.log('Error: ' + httpResponse.error.message);
 			console.log(httpResponse);
 
-			error(httpResponse.error.message);
+			error(httpResponse);
 		}
 	});
 
@@ -267,8 +299,15 @@ var convertYoutubeURLToDownload = function(youtubeURL, callback) {
 };
 
 var downloadYoutubeByID = function(youtubeID, callback) {
+
+	
+
+
+
+/*
+
 //initializes casper
-	var casper = require('casper').create({
+	casper.create({
     verbose: true,
     logLevel: 'debug',
     pageSettings: {
@@ -310,20 +349,24 @@ this.echo(this.getElementAttribute('input[id="submit"]', 'disabled'));
 
         
     });
-});
+});*/
 
-});
+callback();
 
+// casper.run(function() {
+//     this.echo('Done.').exit();
+// });
+// };
 
-
-
-
-
-
-casper.run(function() {
-    this.echo('Done.').exit();
-});
 };
+
+
+
+
+
+
+
+
 
 var test = function() {
 

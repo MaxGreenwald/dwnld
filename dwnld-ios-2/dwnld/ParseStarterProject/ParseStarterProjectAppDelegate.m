@@ -24,7 +24,10 @@
 #pragma mark UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Enable storing and querying data from Local Datastore. Remove this line if you don't want to
+	
+	NSLog(@"did finish launching");
+	
+	// Enable storing and querying data from Local Datastore. Remove this line if you don't want to
     // use Local Datastore features or want to use cachePolicy.
     [Parse enableLocalDatastore];
 
@@ -41,6 +44,8 @@
     // ****************************************************************************
 
     [PFUser enableAutomaticUser];
+	
+	NSLog(@"enabled user");
 
     PFACL *defaultACL = [PFACL ACL];
 
@@ -48,11 +53,15 @@
     [defaultACL setPublicReadAccess:YES];
 
     [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
+	
+	NSLog(@"creating song table");
 
     // Override point for customization after application launch.
     SongTableViewController *stvc = [[SongTableViewController alloc] init];
     self.window.rootViewController = stvc;
     [self.window makeKeyAndVisible];
+	
+	NSLog(@"made visible");
 
     if (application.applicationState != UIApplicationStateBackground) {
         // Track an app open here if we launch with a push, unless
