@@ -7,7 +7,7 @@
 //
 
 #import "SongTableViewController.h"
-
+#import <Parse/Parse.h>
 @interface SongTableViewController ()
 
 @end
@@ -17,6 +17,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    PFQuery *songQuery = [PFQuery queryWithClassName:@"Category"];
+    //[stockPhotoQuery whereKey:@"active" equalTo:[NSNumber numberWithBool:YES]];
+    songQuery.limit = 30;
+    
+    [songQuery orderByAscending:@"Order"];
+    // A pull-to-refresh should always trigger a network request.
+    [songQuery setCachePolicy:kPFCachePolicyNetworkOnly];
+    
+    // If no objects are loaded in memory, we look to the cache first to fill the table
+    // and then subsequently do a query against the network.
+    //
+    // If there is no network connection, we will hit the cache first.
+    //if (self.objects.count == 0 || ![[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+    //   [graffitToUserQuery setCachePolicy:kPFCachePolicyCacheThenNetwork];
+    //}
+    
+    [songQuery findObjectsInBackgroundWithBlock:^(NSArray *songsLocal, NSError *error) {
+        songs = [[NSMutableArray alloc] initWithArray:songsLocal];
+               }];
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -32,26 +52,26 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return songs.count;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    PFObject *song = [songs objectAtIndex:indexPath.row];
     
+    cell.textLabel.text = [song objectForKey:@"downloadURL"];
     // Configure the cell...
     
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.

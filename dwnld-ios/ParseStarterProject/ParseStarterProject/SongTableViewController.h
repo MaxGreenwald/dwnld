@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ParseUI/ParseUI.h>
 
-@interface SongTableViewController : UITableViewController
+@interface SongTableViewController : UITableViewController{
+    NSMutableArray *songs;
+}
 
 @end
