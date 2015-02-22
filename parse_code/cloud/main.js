@@ -1,8 +1,8 @@
 var YOUTUBE_APIKEY = "AIzaSyCFj15TpkchL4OUhLD1Q2zgxQnMb7v3XaM";
 var YOUTUBE_OAUTH_BEARER = "ya29.IgGH5vJePRt8R3ciiE-gMN2NWSW0my8XdCatxvwhHUyOtgCBWDFmgtcdPVQsX3ORWKI0xbmMPnx1yA";
 
-var _ = require('underscore');
-var async = require('async');
+var _ = require('cloud/node_modules/underscore/underscore');
+var async = require('cloud/node_modules/async/lib/async');
 
 ///////////////////////////////////////////////////////////////////////////
 //REMOVE THIS CODE WHEN YOU DEPLOY
@@ -299,7 +299,7 @@ this.echo(this.getElementAttribute('input[id="submit"]', 'disabled'));
     var links;
 //get download link and pass it to callback()
     casper.waitForSelector('.success', function() {
-        
+
         var link = this.evaluate(function() {
             return __utils__.getElementByXPath("//a[contains(@href,'&ts_create')]").href;
         })
@@ -308,7 +308,7 @@ this.echo(this.getElementAttribute('input[id="submit"]', 'disabled'));
             callback(link);
         });
 
-        
+
     });
 });
 
