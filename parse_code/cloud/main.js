@@ -1,20 +1,22 @@
 
-// var async = require('async');
+var async = require('cloud/node_modules/async/lib/async');
 
 ///////////////////////////////////////////////////////////////////////////
 //REMOVE THIS CODE WHEN YOU DEPLOY 
-var runOnParse = false;
+/*var runOnParse = false;
 var originalParseFunction = Parse._request;
 
 Parse._request = function (options) {
     Parse.serverURL = "https://api.parse.com";
+
+    console.log(options);
 
     if (runOnParse === false && options.route == "functions") {
         Parse.serverURL = "http://localhost:5555";
     }
 
     return originalParseFunction(options);
-};
+};*/
 //END CODE
 ///////////////////////////////////////////////////////////////////////////
 
@@ -51,6 +53,45 @@ Parse.Cloud.define("clear", function(request, response) {
 });
 
 Parse.Cloud.define("find", function(request, response) {
+
+	console.log("FIND");
+
+
+
+	var body = request.body;
+	var json = JSON.parse(body);
+	var songs = json.songs;
+
+	var results = [];
+
+	// 1st para in async.each() is the array of items
+	async.each(songs,
+  		// 2nd param is the function that each item is passed to
+  		function(song, callback){
+
+  			// asynchronous function call
+  			fetchSong(song, function(err, songDB){
+
+  				if (err){
+  					callback(err);
+  				}
+
+  				results.push(songDB);
+
+  				// Async call is done, alert via callback
+			    callback();
+  			});
+		    
+		},
+
+  		// 3rd param is the function to call when everything's done
+  		function(err){
+   			// All tasks are done now
+    		response.success(results);
+ 		 }
+	);
+
+	/*
 	var numSongs = 10;
 
 	var i = 1;
@@ -70,7 +111,7 @@ Parse.Cloud.define("find", function(request, response) {
 	    // alert('Failed to create new object, with error code: ' + error.message);
 	    response.error(error.message);
 	  }
-	});
+	});*/
 	
 });
 
@@ -160,7 +201,7 @@ var getYoutubeURL = function(song, artist, success, error){
 		}
 	});
 
-}
+};
 
 var convertYoutubeURLToDownload = function(youtubeURL, callback) {
 
@@ -172,15 +213,17 @@ var convertYoutubeURLToDownload = function(youtubeURL, callback) {
 
 	console.log('extracted youtube ID: ' + youtubeID);
 
-	downloadYoutubeID(youtubeID, callback);
-}
+	downloadYoutubeByID(youtubeID, callback);
+};
 
-var downloadYoutubeID = function(youtubeID, callback) {
+var downloadYoutubeByID = function(youtubeID, callback) {
 
 	/* DOES NOT WORK, USE CASPER */
 	var reqURL = "http://www.youtube-mp3.org/a/itemInfo/?video_id" + youtubeID + "&ac=www&t=grp&r=1424516943797&s=145890";
 
-	Parse.Cloud.httpRequest({
+	callback('http://www.youtube-mp3.org/get?video_id=e-ORhEE9VVg&ts_create=1424547248&r=NjguNjUuMTY5LjIw&h2=b93d6850b962bdd4f3e29253fdcaeb2c&s=30315');
+
+	/*Parse.Cloud.httpRequest({
   		method: "GET",
   		url: reqURL,
   		body: '',
@@ -193,9 +236,9 @@ var downloadYoutubeID = function(youtubeID, callback) {
   		error: function(httpResponse) {
     		console.error('Request failed with response code ' + httpResponse.status);
   		} 		
-  	});
+  	});*/
 
-}
+};
 
 var test = function() {
 
@@ -236,7 +279,7 @@ var fetchSongs = function (songs){
 	};
 };
 
-var fetchSong = function(song){
+var fetchSong = function(song, callback){
 
 	var name = song.name;
 	var artist = song.artist;
@@ -247,7 +290,7 @@ var fetchSong = function(song){
 
 		var youtubeURL = "https://www.youtube.com/watch?v=" + youtubeID;
 
-		downloadYoutubeID(youtubeID, function (downloadURL) {
+		downloadYoutubeByID(youtubeID, function (downloadURL) {
 
 			console.log('received download url' + downloadURL);
 
@@ -268,6 +311,8 @@ var fetchSong = function(song){
 					console.log('success saving song!');
 					console.log(song);
 
+					callback(null, song);
+
 				},
 				function(song, err){
 
@@ -286,6 +331,6 @@ var fetchSong = function(song){
 	convertYoutubeToDownload(youtube1, function (downloadURL) {
 		console.log(youtube1 + " --> " + downloadURL);
 	});*/
-}
+};
 
-test();
+// test();
