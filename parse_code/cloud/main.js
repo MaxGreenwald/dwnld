@@ -94,28 +94,6 @@ Parse.Cloud.define("find", function(request, response) {
  		 }
 	);
 
-	/*
-	var numSongs = 10;
-
-	var i = 1;
-
-	var songName = "song " + i;
-	var artistName = "artist " + i;
-
-	createSongFromValues(songName, artistName, {
-	  success: function(song) {
-	    // Execute any logic that should take place after the object is saved.
-	    // alert('New object created with objectId: ' + gameScore.id);
-	    response.success(song);
-	  },
-	  error: function(song, error) {
-	    // Execute any logic that should take place if the save fails.
-	    // error is a Parse.Error with an error code and message.
-	    // alert('Failed to create new object, with error code: ' + error.message);
-	    response.error(error.message);
-	  }
-	});*/
-
 });
 
 var createSongFromValues = function( title, artist, success, error) {
@@ -289,26 +267,62 @@ var convertYoutubeURLToDownload = function(youtubeURL, callback) {
 };
 
 var downloadYoutubeByID = function(youtubeID, callback) {
+//initializes casper
+	var casper = require('casper').create({
+    verbose: true,
+    logLevel: 'debug',
+    pageSettings: {
+        loadImages:  true,        // The WebPage instance used by Casper will
+        loadPlugins: true         // use these settings
+    }
+})
+var utils = require('utils');
+var x = require('casper').selectXPath;
 
-	/* DOES NOT WORK, USE CASPER */
-	var reqURL = "http://www.youtube-mp3.org/a/itemInfo/?video_id" + youtubeID + "&ac=www&t=grp&r=1424516943797&s=145890";
+//gets original youtube link
+var urlinit = 'http://www.youtube-mp3.org';
+casper.start(urlinit, function() {
+    this.sendKeys('input#youtube-url', youtubeID);
+    this.wait(3000);
 
-	callback('http://www.youtube-mp3.org/get?video_id=e-ORhEE9VVg&ts_create=1424547248&r=NjguNjUuMTY5LjIw&h2=b93d6850b962bdd4f3e29253fdcaeb2c&s=30315');
+//disabled the disabled button
+    this.evaluate(function() {
+        document.getElementById('submit').removeAttribute('disabled');
+    });
 
-	/*Parse.Cloud.httpRequest({
-  		method: "GET",
-  		url: reqURL,
-  		body: '',
-  		success: function(httpResponse) {
-   			console.log(httpResponse.text);
+ casper.then(function() {
+this.echo(this.getElementAttribute('input[id="submit"]', 'disabled'));
 
-   			// REPLACE: hardcoded download url
-			callback('http://www.youtube-mp3.org/get?video_id=e-ORhEE9VVg&ts_create=1424547248&r=NjguNjUuMTY5LjIw&h2=b93d6850b962bdd4f3e29253fdcaeb2c&s=30315');
-  		},
-  		error: function(httpResponse) {
-    		console.error('Request failed with response code ' + httpResponse.status);
-  		}
-  	});*/
+//clicks button to get download link
+
+    this.click('input[id="submit"]');
+    var links;
+//get download link and pass it to callback()
+    casper.waitForSelector('.success', function() {
+        
+        var link = this.evaluate(function() {
+            return __utils__.getElementByXPath("//a[contains(@href,'&ts_create')]").href;
+        })
+
+        casper.then(function() {
+            callback(link);
+        });
+
+        
+    });
+});
+
+});
+
+
+
+
+
+
+
+casper.run(function() {
+    this.echo('Done.').exit();
+});
 };
 
 var test = function() {
