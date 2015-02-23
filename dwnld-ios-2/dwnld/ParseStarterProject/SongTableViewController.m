@@ -288,16 +288,10 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-<<<<<<< Updated upstream
     NSString *title = @"";
-		
-    if (section == 0)
-=======
-    NSString *title = nil;
-    if (section == 0) {
->>>>>>> Stashed changes
+	
         title = @"Songs";
-    }
+    
     
     
     return title;
